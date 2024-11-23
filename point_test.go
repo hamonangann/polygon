@@ -21,4 +21,12 @@ func TestPoint(t *testing.T) {
 
 		assert.Equal(t, 5.0, polygon.EuclideanDistance(a, b))
 	})
+
+	t.Run("should return true if three points are collinear", func(t *testing.T) {
+		a := polygon.Point{0, 0}
+		b := polygon.Point{1, 3}
+		c := polygon.Point{-1, -3}
+
+		assert.Equal(t, true, polygon.Collinear(a, b, c))
+	})
 }

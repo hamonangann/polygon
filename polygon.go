@@ -5,7 +5,8 @@ import (
 	"math"
 )
 
-var ErrInvalidPolygon = errors.New("points must be more than 2")
+var ErrInsufficientPoints = errors.New("points must be more than 2")
+var ErrCollinearPoints = errors.New("points must not be collinear")
 
 type Polygon struct {
 	points []Point
@@ -17,8 +18,18 @@ func (p Polygon) Points() []Point {
 
 func NewPolygon(pts ...Point) (*Polygon, error) {
 	if len(pts) < 3 {
-		return nil, ErrInvalidPolygon
+		return nil, ErrInsufficientPoints
 	}
+
+	for i := range pts {
+		for j := i + 1; j < len(pts)-1; j++ {
+			if Collinear(pts[i], pts[j], pts[j+1]) {
+				return nil, ErrCollinearPoints
+			}
+		}
+
+	}
+
 	return &Polygon{pts}, nil
 }
 

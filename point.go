@@ -1,6 +1,8 @@
 package polygon
 
-import "math"
+import (
+	"math"
+)
 
 type Point struct {
 	X float64
@@ -13,4 +15,8 @@ func ManhattanDistance(a Point, b Point) float64 {
 
 func EuclideanDistance(a Point, b Point) float64 {
 	return math.Abs(math.Sqrt((a.X-b.X)*(a.X-b.X) + (a.Y-b.Y)*(a.Y-b.Y)))
+}
+
+func Collinear(a Point, b Point, c Point) bool {
+	return math.Abs((a.X*(b.Y-c.Y))+(b.X*(c.Y-a.Y))+(c.X*(a.Y-b.Y))) < 1e-9
 }

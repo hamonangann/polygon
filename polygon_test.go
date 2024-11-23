@@ -14,7 +14,17 @@ func TestPolygon(t *testing.T) {
 			polygon.Point{1, 2},
 		)
 
-		assert.EqualError(t, err, polygon.ErrInvalidPolygon.Error())
+		assert.EqualError(t, err, polygon.ErrInsufficientPoints.Error())
+	})
+
+	t.Run("should handle polygon creation with collinear points", func(t *testing.T) {
+		_, err := polygon.NewPolygon(
+			polygon.Point{1, 3},
+			polygon.Point{2, 6},
+			polygon.Point{3, 9},
+		)
+
+		assert.EqualError(t, err, polygon.ErrCollinearPoints.Error())
 	})
 
 	t.Run("should return created points from valid polygon", func(t *testing.T) {
