@@ -6,7 +6,8 @@ import (
 )
 
 var ErrInsufficientPoints = errors.New("points must be more than 2")
-var ErrCollinearPoints = errors.New("points must not be collinear")
+var ErrCollinearPoints = errors.New("points must not collinear")
+var ErrSelfIntersecting = errors.New("sides must not intersect each other")
 
 type Polygon struct {
 	points []Point
@@ -23,14 +24,42 @@ func NewPolygon(pts ...Point) (*Polygon, error) {
 
 	for i := range pts {
 		for j := i + 1; j < len(pts)-1; j++ {
-			if Collinear(pts[i], pts[j], pts[j+1]) {
+			if OrientationTriplet(pts[i], pts[j], pts[j+1]) == 0 {
 				return nil, ErrCollinearPoints
 			}
 		}
+	}
 
+	if len(pts) > 3 {
+		for i := range pts {
+			for j := i + 2; j < len(pts); j++ {
+				lineAStart := pts[i]
+				lineAEnd := pts[i+1]
+				lineBStart := pts[j]
+				lineBEnd := pts[(j+1)%len(pts)]
+
+				if lineAStart != lineBEnd && LineSegmentIntersect(lineAStart, lineAEnd, lineBStart, lineBEnd) {
+					return nil, ErrSelfIntersecting
+				}
+			}
+		}
 	}
 
 	return &Polygon{pts}, nil
+}
+
+func (p Polygon) Sides() []float64 {
+	sides := make([]float64, 0)
+
+	for i := range p.points {
+		if i == len(p.points)-1 {
+			sides = append(sides, EuclideanDistance(p.points[i], p.points[0]))
+		} else {
+			sides = append(sides, EuclideanDistance(p.points[i], p.points[i+1]))
+		}
+	}
+
+	return sides
 }
 
 func (p Polygon) Perimeter() float64 {
