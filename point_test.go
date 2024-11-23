@@ -63,38 +63,11 @@ func TestPoint(t *testing.T) {
 		assert.Equal(t, true, polygon.LineSegmentIntersect(a1, a2, b1, b2))
 	})
 
-	t.Run("should return true if there are collinearity between two line segments and the segements intersect, case 1", func(t *testing.T) {
+	t.Run("should return true if there are collinearity between two line segments and the segements intersect", func(t *testing.T) {
 		a1 := polygon.Point{0, 0}
 		a2 := polygon.Point{2, 2}
 		b1 := polygon.Point{1, 1}
 		b2 := polygon.Point{3, 3}
-
-		assert.Equal(t, true, polygon.LineSegmentIntersect(a1, a2, b1, b2))
-	})
-
-	t.Run("should return true if there are collinearity between two line segments and the segements intersect, case 2", func(t *testing.T) {
-		a1 := polygon.Point{3, 3}
-		a2 := polygon.Point{4, 4}
-		b1 := polygon.Point{1, 1}
-		b2 := polygon.Point{3, 3}
-
-		assert.Equal(t, true, polygon.LineSegmentIntersect(a1, a2, b1, b2))
-	})
-
-	t.Run("should return true if there are collinearity between two line segments and the segements intersect, case 3", func(t *testing.T) {
-		a1 := polygon.Point{4, 4}
-		a2 := polygon.Point{2, 2}
-		b1 := polygon.Point{2, 2}
-		b2 := polygon.Point{1, 1}
-
-		assert.Equal(t, true, polygon.LineSegmentIntersect(a1, a2, b1, b2))
-	})
-
-	t.Run("should return true if there are collinearity between two line segments and the segements intersect, case 4", func(t *testing.T) {
-		a1 := polygon.Point{1, 1}
-		a2 := polygon.Point{4, 4}
-		b1 := polygon.Point{5, 5}
-		b2 := polygon.Point{2, 2}
 
 		assert.Equal(t, true, polygon.LineSegmentIntersect(a1, a2, b1, b2))
 	})

@@ -45,21 +45,10 @@ func LineSegmentIntersect(p1 Point, p2 Point, q1 Point, q2 Point) bool {
 		return true
 	}
 
-	if o1 == 0 && BetweenSegment(p1, q1, p2) {
-		return true
-	}
+	b1 := BetweenSegment(p1, q1, p2)
+	b2 := BetweenSegment(p1, q2, p2)
+	b3 := BetweenSegment(q1, p1, q2)
+	b4 := BetweenSegment(q1, p2, q2)
 
-	if o2 == 0 && BetweenSegment(p1, q2, p2) {
-		return true
-	}
-
-	if o3 == 0 && BetweenSegment(q1, p1, q2) {
-		return true
-	}
-
-	if o4 == 0 && BetweenSegment(q1, p2, q2) {
-		return true
-	}
-
-	return false
+	return o1 == 0 && (b1 || b2 || b3 || b4)
 }
