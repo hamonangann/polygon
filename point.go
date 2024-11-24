@@ -32,7 +32,7 @@ func OrientationTriplet(a Point, b Point, c Point) int {
 }
 
 func BetweenSegment(a Point, p Point, b Point) bool {
-	return ((p.X <= a.X) != (p.X <= b.X)) && ((p.Y <= a.Y) != (p.Y <= b.Y))
+	return (OrientationTriplet(a, p, b) == 0) && ((p.X <= a.X) != (p.X <= b.X)) && ((p.Y <= a.Y) != (p.Y <= b.Y))
 }
 
 func LineSegmentIntersect(p1 Point, p2 Point, q1 Point, q2 Point) bool {
