@@ -1,6 +1,7 @@
 package polygon_test
 
 import (
+	"math"
 	"testing"
 
 	"github.com/hamonangann/polygon"
@@ -79,5 +80,41 @@ func TestPolygon(t *testing.T) {
 		)
 
 		assert.Equal(t, 6.0, p.Area())
+	})
+
+	t.Run("should return correct number of sides", func(t *testing.T) {
+		p, _ := polygon.NewPolygon(
+			polygon.Point{0, 0},
+			polygon.Point{0, 3},
+			polygon.Point{3, 4},
+			polygon.Point{5, 3},
+			polygon.Point{5, 0},
+		)
+
+		assert.Equal(t, 5, p.NumberOfSides())
+	})
+
+	t.Run("should return correct number of vertices", func(t *testing.T) {
+		p, _ := polygon.NewPolygon(
+			polygon.Point{0, 0},
+			polygon.Point{0, 3},
+			polygon.Point{3, 4},
+			polygon.Point{5, 3},
+			polygon.Point{5, 0},
+		)
+
+		assert.Equal(t, 5, p.NumberOfVertices())
+	})
+
+	t.Run("should return correct sum of interior angles", func(t *testing.T) {
+		p, _ := polygon.NewPolygon(
+			polygon.Point{0, 0},
+			polygon.Point{0, 3},
+			polygon.Point{3, 4},
+			polygon.Point{5, 3},
+			polygon.Point{5, 0},
+		)
+
+		assert.Equal(t, math.Pi*3.0, p.SumOfInteriorAngles())
 	})
 }

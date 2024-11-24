@@ -87,3 +87,15 @@ func (p Polygon) Area() float64 {
 
 	return math.Abs(ans / 2)
 }
+
+func (p Polygon) NumberOfSides() int {
+	return len(p.points)
+}
+
+func (p Polygon) NumberOfVertices() int {
+	return len(p.points)
+}
+
+func (p Polygon) SumOfInteriorAngles() float64 {
+	return float64(len(p.points)-2) * math.Pi
+}
